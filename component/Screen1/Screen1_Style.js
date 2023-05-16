@@ -1,0 +1,63 @@
+import { StyleSheet } from 'react-native';
+const styles = StyleSheet.create({
+    screenContainer: {
+    height: '60%',
+    position: 'relative',
+    flex: 1,
+    flexDirection: 'column',
+    width: '100%',
+    // borderWidth: 3,
+    // borderColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'center',
+    },
+    counterImageSection: {
+        width: '100%',
+        // borderWidth: 4,
+        // borderColor: 'white',
+        flex: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      counterImage: {
+        marginLeft: -30,
+        width: '90%',
+        height: '90%',
+        resizeMode: 'contain',
+      },
+      countingtxt: {
+        // width: '20%',
+        flex: 1,
+        height: '20%',
+        // borderWidth: 3,
+        // borderColor: 'green',
+        position: 'absolute',
+        color: 'white',
+        fontSize: 20,
+        top: '50%',
+        left: '37%',
+        transform: [{ rotate: '-15deg' }],
+
+      },
+      castingtxt: {
+        color: 'rgb(200, 69, 204)',
+        fontSize: 26,
+        // width: '60%',
+        // marginLeft: 50,
+        flex: 1,
+        // height: '20%',
+        // borderWidth: 3,
+        // borderColor: 'purple',
+        transform: [{ rotate: '-10deg' }],
+      },
+      resulttxt: {
+        color: 'yellow',
+        fontSize: 24,
+        // width: '20%',
+        flex: 1,
+        // height: '20%',
+        // borderWidth: 3,
+        // borderColor: 'white',
+      },
+});
+export default styles;
