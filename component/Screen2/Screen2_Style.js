@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     // borderColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 20,
     },
     castingbox: {
         width: '100%',

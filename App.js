@@ -1,24 +1,54 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View,  ImageBackground, Animated,TouchableOpacity, Text, Button } from 'react-native';
+import { View, ImageBackground, Animated } from 'react-native';
 import backgroundImage from './assest/award_bg.png';
 import awardPlatform from './assest/awardPlatform.png';
 import girlClap from './assest/girlClap.png';
 import curtainLeft from './assest/curtain-left.png';
 import curtainRight from './assest/curtain-right.png';
 import styles from './Style';
-// import Screen1 from './component/Screen1/Screen1';
-// import Screen2 from './component/Screen2/Screen2';
+import Screen1 from './component/Screen1/Screen1';
+import Screen2 from './component/Screen2/Screen2';
 import Screen3 from './component/Screen3/Screen3';
 
-
 const App = () => {
-  const [refresh, setRefresh] = useState(false);
+  const [screenIndex, setScreenIndex] = useState(1);
+  const [screen3Visible, setScreen3Visible] = useState(false);
   const curtainLeftAnimation = useRef(new Animated.Value(0)).current;
   const curtainRightAnimation = useRef(new Animated.Value(0)).current;
 
+  const handleScreen3Click = () => {
+    setScreen3Visible(false);
+    setScreenIndex((prevIndex) => (prevIndex + 1) % 4);
+  };
+
   useEffect(() => {
     animateCurtains();
-  }, [refresh]);
+
+    const screenTimer = setTimeout(() => {
+      if (screenIndex === 3) {
+        setScreen3Visible(true);
+      } else {
+        setScreenIndex((prevIndex) => (prevIndex + 1) % 4);
+      }
+    }, getScreenDuration(screenIndex));
+
+    return () => {
+      clearTimeout(screenTimer);
+    };
+  }, [screenIndex]);
+
+  const getScreenDuration = (index) => {
+    switch (index) {
+      case 1:
+        return 4000;
+      case 2:
+        return 20000;
+      case 3:
+        return;
+      default:
+        return 0;
+    }
+  };
 
   const animateCurtains = () => {
     curtainLeftAnimation.setValue(0);
@@ -38,8 +68,19 @@ const App = () => {
     ]).start();
   };
 
-  const handleRefresh = () => {
-    setRefresh(!refresh);
+  const renderScreen = () => {
+    switch (screenIndex) {
+      case 1:
+        return <Screen1 />;
+      case 2:
+        return <Screen2 />;
+      case 3:
+        return screen3Visible ? (
+          <Screen3 handleScreen3Click={handleScreen3Click} animateCurtains={animateCurtains} />
+        ) : null;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -47,11 +88,7 @@ const App = () => {
       <View style={styles.mainContainer}>
         <View style={styles.stageBackground}>
           <ImageBackground source={backgroundImage} style={styles.backgroundImage} />
-          <View style={styles.screen}>
-            {/* <Screen1 /> */}
-            {/* <Screen2 /> */}
-            <Screen3 />
-          </View>
+          <View style={styles.screen}>{renderScreen()}</View>
         </View>
         <View style={styles.podium}>
           <ImageBackground source={awardPlatform} style={styles.poduimImage} />
@@ -66,12 +103,6 @@ const App = () => {
         source={curtainRight}
         style={[styles.right, { transform: [{ translateX: curtainRightAnimation }] }]}
       />
-      {/* <TouchableOpacity onPress={handleRefresh}> */}
-      {/* <Button
-      title="Refresh"
-      onPress={handleRefresh}
-    /> */}
-      {/* </TouchableOpacity> */}
     </>
   );
 };

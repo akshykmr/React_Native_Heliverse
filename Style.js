@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     width: '100%',
-    borderWidth: 3,
-    borderColor: 'red',
+    // borderWidth: 3,
+    // borderColor: 'red',
   },
   podium: {
     height: '20%',
